@@ -60,7 +60,7 @@ module MongoMapper
           i = 0
           while self.class.first(conds)
             i += 1
-            conds[options[:key]] = the_slug = "#{raw_slug}-#{i}"
+            conds[options[:key]] = the_slug = "#{raw_slug}_#{i}"
           end
 
           self.send(:"#{options[:key]}=", the_slug)
