@@ -50,7 +50,7 @@ module MongoMapper
           to_slug = self[options[:to_slug]]
           return if to_slug.blank?
 
-          the_slug = raw_slug = to_slug.send(options[:method]).to_s[0...options[:max_length]].gsub("-", "_")
+          the_slug = raw_slug = to_slug.send(options[:method]).to_s[0...options[:max_length]]
 
           conds = {}
           conds[options[:key]]   = the_slug
@@ -60,7 +60,7 @@ module MongoMapper
           i = 0
           while self.class.first(conds)
             i += 1
-            conds[options[:key]] = the_slug = "#{raw_slug}_#{i}"
+            conds[options[:key]] = the_slug = "#{raw_slug}-#{i}"
           end
 
           self.send(:"#{options[:key]}=", the_slug)
