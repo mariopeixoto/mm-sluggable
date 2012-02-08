@@ -29,7 +29,7 @@ module MongoMapper
             :method       => :parameterize,
             :scope        => nil,
             :max_length   => 256,
-            :callback     => [:before_save]
+            :callback     => :before_validation
           }.merge(options)
 
           key slug_options[:key], String, :index => slug_options[:index]
