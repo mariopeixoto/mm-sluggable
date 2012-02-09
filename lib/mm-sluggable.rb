@@ -67,7 +67,11 @@ module MongoMapper
         end
         
         def to_param
-          options = self.class.slug_options if self.class.class_variable_defined? :slug_options
+          begin 
+            options = self.class.slug_options
+          rescue
+            options = {}
+          end
           ( self.send(options[:key]) || self.id ).to_s
         end
       end
