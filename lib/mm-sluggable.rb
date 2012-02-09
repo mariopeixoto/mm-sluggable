@@ -50,7 +50,7 @@ module MongoMapper
           to_slug = self[options[:to_slug]]
           return if to_slug.blank?
 
-          the_slug = raw_slug = to_slug.send(options[:method]).to_s[0...options[:max_length]]
+          the_slug = raw_slug = to_slug.to_s.send(options[:method]).to_s[0...options[:max_length]]
 
           conds = {}
           conds[options[:key]]   = the_slug
@@ -67,7 +67,7 @@ module MongoMapper
         end
         
         def to_param
-          options = self.class.slug_options
+          options = self.class.slug_options if self.class.class_variable_defined? :slug_options
           ( self.send(options[:key]) || self.id ).to_s
         end
       end
